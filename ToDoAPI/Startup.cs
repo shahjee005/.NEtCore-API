@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using ToDoAPI.Models;
 
 namespace ToDoAPI
 {
@@ -25,6 +27,10 @@ namespace ToDoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IServiceCollection serviceCollections = services.AddDbContext<ToDoContext>(options =>
+            {
+                options.UseInMemoryDatabase("ToDoList");
+            });
             services.AddControllers();
         }
 
